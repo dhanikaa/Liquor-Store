@@ -1,4 +1,4 @@
-package entity;
+package com.architecture.Liquor.Store.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Products {
+public class Product {
 
     @Id
-    private Long id;
-    private String name;
-    private String description;
-    private double price;
+    private int pid;
+    private String pname;
+    private int price;
 
 }

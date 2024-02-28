@@ -1,4 +1,4 @@
-package entity;
+package com.architecture.Liquor.Store.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CartItems {
+public class CartItem {
     @Id
-    private Long id;
+    private int cid;
     @ManyToOne
-    private Products product;
+    private Product product;
     private int quantity;
 
 }
