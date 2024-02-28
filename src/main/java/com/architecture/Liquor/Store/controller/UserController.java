@@ -5,8 +5,6 @@ import com.architecture.Liquor.Store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value="api/v1/user")
 @CrossOrigin
@@ -16,9 +14,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/getUser")
-    public List<UserDto> getUser(){
+    public String getUser(){
 
-        return userService.getAllUsers();
+        return "User Created";
     }
 
     @PostMapping("/saveUser")
@@ -27,13 +25,15 @@ public class UserController {
     }
 
     @PutMapping("/updateUser")
-    public UserDto updateUser(@RequestBody UserDto userDto){
-        return userService.updateUser(userDto);
+    public String updateUser(){
+
+        return "User Updated";
     }
 
     @DeleteMapping("/deleteUser")
-    public boolean deleteUser(@RequestBody UserDto userDto){
-        return userService.deleteUser(userDto);
+    public String deleteUser(){
+
+        return "User deleted";
     }
 
 }
