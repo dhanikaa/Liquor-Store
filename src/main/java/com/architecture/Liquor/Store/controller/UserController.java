@@ -15,7 +15,10 @@ public class UserController {
 
     @GetMapping("/getUser")
     public String getUser(){
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8658901 (Connected the DB)
         return "User Created";
     }
 
