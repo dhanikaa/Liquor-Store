@@ -1,6 +1,5 @@
 package com.architecture.Liquor.Store.service;
 
-import com.architecture.Liquor.Store.dto.UserDto;
 import com.architecture.Liquor.Store.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
