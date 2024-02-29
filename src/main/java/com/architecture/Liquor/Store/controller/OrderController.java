@@ -6,6 +6,8 @@ import com.architecture.Liquor.Store.service.OderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value="/api/v1/oder")
 @CrossOrigin
@@ -22,7 +24,17 @@ public class OrderController  {
         }
 
 
+
+        @GetMapping("/getOder")
+        public List<OderDto> getOder() {
+                return oderService.getAllOders();
+        }
+
+
+
 }
+
+
 
 
 
