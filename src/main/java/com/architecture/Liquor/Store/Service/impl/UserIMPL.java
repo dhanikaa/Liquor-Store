@@ -1,15 +1,13 @@
 package com.architecture.Liquor.Store.Service.impl;
 
-import com.architecture.Liquor.Store.Dto.EmployeeDTO;
-import com.architecture.Liquor.Store.Entity.Employee;
-import com.architecture.Liquor.Store.Repo.EmployeeRepo;
+import com.architecture.Liquor.Store.Repo.UserRepo;
 import com.architecture.Liquor.Store.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class EmployeeIMPL implements EmployeeService {
+public class UserIMPL implements EmployeeService {
     @Autowired
-    private EmployeeRepo employeeRepo;
+    private UserRepo userRepo;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
@@ -22,7 +20,7 @@ public class EmployeeIMPL implements EmployeeService {
                 employeeDTO.getEmail(),
                 this.passwordEncoder.encode(employeeDTO.getPassword())
         );
-        employeeRepo.save(employee);
+        userRepo.save(employee);
         return employee.getEmployeename();
 
 

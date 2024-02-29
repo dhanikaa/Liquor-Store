@@ -10,30 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/getUser")
-    public String getUser(){
-      
-        return "User Created";
+    @PostMapping(path = "/save")
+    public String saveUser(@RequestBody UserDto userDto)
+    {
+        String id = userService.addUser(userDto);
+        return id;
     }
-
-    @PostMapping("/saveUser")
-    public UserDto saveUser(@RequestBody UserDto userDto){
-        return userService.saveUser(userDto);
-    }
-
-    @PutMapping("/updateUser")
-    public String updateUser(){
-
-        return "User Updated";
-    }
-
-    @DeleteMapping("/deleteUser")
-    public String deleteUser(){
-
-        return "User deleted";
-    }
-
 }
