@@ -5,7 +5,6 @@ import com.architecture.Liquor.Store.dto.OderDto;
 import com.architecture.Liquor.Store.dto.UserDto;
 import com.architecture.Liquor.Store.entity.CartItem;
 import com.architecture.Liquor.Store.entity.Oder;
-import com.architecture.Liquor.Store.repository.CartItemRepository;
 import com.architecture.Liquor.Store.repository.OderRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -36,6 +35,18 @@ public class OderService {
 
           List<Oder>oderList= oderRepository.findAll();
           return modelMapper.map(oderList,new TypeToken<List<OderDto>>(){}.getType());
+    }
+
+    public OderDto updateOders(OderDto oderDto) {
+        oderRepository.save(modelMapper.map(oderDto, Oder.class));
+        return oderDto;
+
+    }
+
+    public boolean deleteOders(OderDto oderDto) {
+        oderRepository.save(modelMapper.map(oderDto, Oder.class));
+        return true;
+
     }
 
 }

@@ -24,11 +24,27 @@ public class OrderController  {
         }
 
 
-
         @GetMapping("/getOder")
         public List<OderDto> getOder() {
                 return oderService.getAllOders();
         }
+
+
+        @PutMapping("/updateOder")
+        public String updateOders(@RequestBody OderDto oderDto){
+                oderService.updateOders(oderDto);
+                return "Oder Updated";
+        }
+
+        @DeleteMapping("/deleteUser")
+        public String deleteOders(@RequestBody OderDto oderDto){
+                oderService.deleteOders(oderDto);
+                return "delete succesfully";
+        }
+
+
+
+
 
 
 
