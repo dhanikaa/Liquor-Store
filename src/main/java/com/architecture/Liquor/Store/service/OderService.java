@@ -1,9 +1,6 @@
 package com.architecture.Liquor.Store.service;
 
-import com.architecture.Liquor.Store.dto.CartItemDto;
 import com.architecture.Liquor.Store.dto.OderDto;
-import com.architecture.Liquor.Store.dto.UserDto;
-import com.architecture.Liquor.Store.entity.CartItem;
 import com.architecture.Liquor.Store.entity.Oder;
 import com.architecture.Liquor.Store.repository.OderRepository;
 import jakarta.transaction.Transactional;
@@ -44,7 +41,7 @@ public class OderService {
     }
 
     public boolean deleteOders(OderDto oderDto) {
-        oderRepository.save(modelMapper.map(oderDto, Oder.class));
+        oderRepository.delete(modelMapper.map(oderDto, Oder.class));
         return true;
 
     }
