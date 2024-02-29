@@ -6,6 +6,8 @@ import com.architecture.Liquor.Store.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value="api/v1/contact")
 @CrossOrigin
@@ -14,8 +16,8 @@ public class ContactController {
     private ContactService contactService;
 
     @GetMapping("/getContact")
-    public String getContact(){
-        return "User Created";
+    public List<ContactDto> getContact(){
+        return contactService.getAllContacts();
     }
 
     @PostMapping("/saveContact")
@@ -29,8 +31,8 @@ public class ContactController {
     }
 
     @DeleteMapping("/deleteContact")
-    public String deleteContact(){
-        return "contact deleted";
+    public boolean deleteContact(@RequestBody ContactDto contactDto){
+        return contactService.deleteContact(contactDto);
     }
 
 }
