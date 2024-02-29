@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class OderDto {
     @Id
-private int oid;
+    private int oid;
     private int pid;
     private int quantity;
     private int price;
