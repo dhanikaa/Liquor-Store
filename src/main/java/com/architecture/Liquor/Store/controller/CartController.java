@@ -15,8 +15,8 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
-    @PostMapping("/saveCder")
-    public CartDto saveOder(@RequestBody CartDto cartDto) {
+    @PostMapping("/saveCartItems")
+    public CartDto saveCartItems(@RequestBody CartDto cartDto) {
 
         return cartService.saveCartItems(cartDto);
 
