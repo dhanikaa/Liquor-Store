@@ -5,17 +5,20 @@ import com.architecture.Liquor.Store.dto.ProductDto;
 import com.architecture.Liquor.Store.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping(value="api/v1/user")
+@RequestMapping(value="api/v1/product")
 @CrossOrigin
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/getProduct")
-    public String getProduct(){
+    @GetMapping("/getProducts")
+    public List <ProductDto> getProduct(){
 
-        return "Product Created";
+        return productService. getAllProducts();
     }
 
     @PostMapping("/saveProduct")
