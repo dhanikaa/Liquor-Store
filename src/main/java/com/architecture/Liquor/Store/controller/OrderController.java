@@ -36,7 +36,7 @@ public class OrderController  {
                 return "Oder Updated";
         }
 
-        @DeleteMapping("/deleteUser")
+        @DeleteMapping("/deleteOder")
         public String deleteOders(@RequestBody OderDto oderDto){
                 oderService.deleteOders(oderDto);
                 return "delete succesfully";
