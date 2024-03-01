@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class CartDto {
-    @Id
     private int cid;
     private int pid;
     private int quantity;

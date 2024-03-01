@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OderDto {
-    @Id
     private int oid;
     private int pid;
     private int quantity;
