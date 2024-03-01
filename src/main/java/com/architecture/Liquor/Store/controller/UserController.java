@@ -18,8 +18,13 @@ public class UserController {
     private UserService userService;
     @PostMapping("/saveUser")
     public String saveUser(@RequestBody UserDTO userDTO) {
+
         userService.saveUser(userDTO);
         return "User Saved";
+    }
+    @PostMapping("/authenticateUsers")
+    public String authenticateUser(@RequestBody UserDTO userDTO){
+        return userService.toString();
     }
     @GetMapping("/getUser")
     public List<UserDTO> getUser() {
