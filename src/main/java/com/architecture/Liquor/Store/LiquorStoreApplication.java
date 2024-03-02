@@ -16,4 +16,9 @@ public class LiquorStoreApplication {
 		return new ModelMapper();
 	}
 
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+
+	}
 }

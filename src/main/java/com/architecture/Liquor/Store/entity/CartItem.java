@@ -2,19 +2,20 @@ package com.architecture.Liquor.Store.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
-public class Product {
-
+public class CartItem {
     @Id
-    private int pid;
-    private String pname;
-    private int price;
+    private int cid;
+    @ManyToOne
+    private Product product;
+    private int quantity;
 
 }

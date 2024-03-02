@@ -1,4 +1,4 @@
-package com.architecture.Liquor.Store.entity;
+package com.architecture.Liquor.Store.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -6,15 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Product {
-
-    @Id
+public class OderDto {
+    private int oid;
     private int pid;
-    private String pname;
+    private int quantity;
     private int price;
 
 }
+
