@@ -1,7 +1,6 @@
 package com.architecture.Liquor.Store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,8 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class User {
     @Id
-    private int id;
-    private String name;
-    private int telephone;
-
+    @GeneratedValue
+    private int uid;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String telephone;
+    private String address;
+    private String password;
+    private String confirmPassword;
 }
