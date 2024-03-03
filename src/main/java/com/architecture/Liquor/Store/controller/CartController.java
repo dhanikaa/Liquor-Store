@@ -1,45 +1,45 @@
 package com.architecture.Liquor.Store.controller;
 
 import com.architecture.Liquor.Store.dto.CartDto;
+import com.architecture.Liquor.Store.entity.Cart;
 import com.architecture.Liquor.Store.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping(value="/api/v1/cart")
-@CrossOrigin
+@RequestMapping("/api/carts")
 public class CartController {
 
+    private final CartService cartService;
 
     @Autowired
-    private CartService cartService;
-    @PostMapping("/saveCartItems")
-    public CartDto saveCartItems(@RequestBody CartDto cartDto) {
-
-        return cartService.saveCartItems(cartDto);
-
-
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
-
-    @GetMapping("/getCartItems")
-    public List<CartDto> getCartItems() {
-        return cartService.getAllCartItems();
+    @GetMapping("/{cid}")
+    public ResponseEntity<Cart> getCartById(@PathVariable int cid) {
+        Cart cart = cartService.getCartById(cid);
+        return ResponseEntity.ok(cart);
     }
 
-
-    @PutMapping("/updateCartItems")
-    public String updateOders(@RequestBody CartDto cartDto){
-        cartService.updateCartItems(cartDto);
-        return "Oder Updated";
+    @PostMapping
+    public ResponseEntity<Cart> createCart(@RequestBody CartDto cartDto) {
+        Cart createdCart = cartService.createCart(cartDto);
+        return new ResponseEntity<>(createdCart, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleteCartItems")
-    public String deleteCartItens(@RequestBody CartDto cartDto){
-        cartService.deleteCartItems(cartDto);
-        return "delete succesfully";
+    @PutMapping("/{cid}")
+    public ResponseEntity<Cart> updateCart(@PathVariable int cid, @RequestBody CartDto cartDto) {
+        Cart updatedCart = cartService.updateCart(cid, cartDto);
+        return ResponseEntity.ok(updatedCart);
     }
 
+    @DeleteMapping("/{cid}")
+    public ResponseEntity<Void> deleteCart(@PathVariable int cid) {
+        cartService.deleteCart(cid);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -2,48 +2,45 @@ package com.architecture.Liquor.Store.service;
 
 import com.architecture.Liquor.Store.dto.CartDto;
 import com.architecture.Liquor.Store.entity.Cart;
+import com.architecture.Liquor.Store.exception.CartNotFoundException;
 import com.architecture.Liquor.Store.repository.CartRepository;
-import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
-
 @Service
-@Transactional
 public class CartService {
 
+    private final CartRepository cartRepository;
+
     @Autowired
-    private CartRepository cartRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public CartDto saveCartItems(CartDto cartDto) {
-        cartRepository.save(modelMapper.map(cartDto, Cart.class));
-
-        return cartDto;
-
+    public CartService(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
     }
 
-    public List<CartDto>getAllCartItems() {
-
-        List<Cart>cartList= cartRepository.findAll();
-        return modelMapper.map(cartList,new TypeToken<List<CartDto>>(){}.getType());
+    public Cart getCartById(int cid) {
+        return cartRepository.findById(cid)
+                .orElseThrow(() -> new CartNotFoundException("Cart with id " + cid + " not found"));
     }
 
-    public CartDto updateCartItems(CartDto cartDto) {
-        cartRepository.save(modelMapper.map(cartDto, Cart.class));
-
-        return cartDto;
+    public Cart createCart(CartDto cartDto) {
+        Cart cart = new Cart();
+        mapDtoToEntity(cartDto, cart);
+        return cartRepository.save(cart);
     }
 
-    public boolean deleteCartItems(CartDto cartDto) {
-       cartRepository.delete(modelMapper.map(cartDto, Cart.class));
-        return true;
-
+    public Cart updateCart(int cid, CartDto cartDto) {
+        Cart existingCart = getCartById(cid);
+        mapDtoToEntity(cartDto, existingCart);
+        return cartRepository.save(existingCart);
     }
 
+    public void deleteCart(int cid) {
+        cartRepository.deleteById(cid);
+    }
+
+    private void mapDtoToEntity(CartDto cartDto, Cart cart) {
+        cart.setPid(cartDto.getPid());
+        cart.setQuantity(cartDto.getQuantity());
+        cart.setPrice(cartDto.getPrice());
+    }
 }

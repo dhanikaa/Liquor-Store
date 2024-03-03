@@ -2,39 +2,55 @@ package com.architecture.Liquor.Store.service;
 
 import com.architecture.Liquor.Store.dto.UserDto;
 import com.architecture.Liquor.Store.entity.User;
+import com.architecture.Liquor.Store.exception.UserNotFoundException;
 import com.architecture.Liquor.Store.repository.UserRepository;
-import jakarta.transaction.Transactional;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class UserService {
+
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ModelMapper modelMapper;
-    public UserDto saveUser(UserDto userDto){
-        userRepository.save(modelMapper.map(userDto, User.class));
-        return userDto;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<UserDto> getAllUsers(){
-        List<User>userList=userRepository.findAll();
-        return modelMapper.map(userList,new TypeToken<List<UserDto>>(){}.getType());
+    public User getUserById(int uid) {
+        return userRepository.findById(uid)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + uid + " not found"));
     }
 
-    public UserDto updateUser(UserDto userDto){
-        userRepository.save(modelMapper.map(userDto, User.class));
-        return userDto;
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public boolean deleteUser(UserDto userDto){
-        userRepository.delete(modelMapper.map(userDto, User.class));
-        return true;
+    public User createUser(UserDto userDto) {
+        User user = new User();
+        mapDtoToEntity(userDto, user);
+        return userRepository.save(user);
+    }
+
+    public User updateUser(int uid, UserDto userDto) {
+        User existingUser = getUserById(uid);
+        mapDtoToEntity(userDto, existingUser);
+        return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(int uid) {
+        userRepository.deleteById(uid);
+    }
+
+    private void mapDtoToEntity(UserDto userDto, User user) {
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setTelephone(userDto.getTelephone());
+        user.setAddress(userDto.getAddress());
+        user.setPassword(userDto.getPassword());
+        user.setConfirmPassword(userDto.getConfirmPassword());
     }
 }

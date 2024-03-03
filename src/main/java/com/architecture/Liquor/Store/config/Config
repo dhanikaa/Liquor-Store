@@ -1,0 +1,3 @@
+Configuration Layer:
+This layer includes configuration files and classes.
+Configuration can be done using annotations like @Configuration, @Bean, or through XML configuration

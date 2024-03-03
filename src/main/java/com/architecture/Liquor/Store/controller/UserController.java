@@ -1,38 +1,53 @@
 package com.architecture.Liquor.Store.controller;
 
 import com.architecture.Liquor.Store.dto.UserDto;
+import com.architecture.Liquor.Store.entity.User;
 import com.architecture.Liquor.Store.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value="api/v1/user")
-@CrossOrigin
+@RequestMapping("/api/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
-
-    @GetMapping("/getUser")
-    public List<UserDto> getUser(){
-        return userService.getAllUsers();
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping("/saveUser")
-    public UserDto saveUser(@RequestBody UserDto userDto){
-        return userService.saveUser(userDto);
+    @GetMapping("/{uid}")
+    public ResponseEntity<User> getUserById(@PathVariable int uid) {
+        User user = userService.getUserById(uid);
+        return ResponseEntity.ok(user);
     }
 
-    @PutMapping("/updateUser")
-    public UserDto updateUser(@RequestBody UserDto userDto){
-        return userService.updateUser(userDto);
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
-    @DeleteMapping("/deleteUser")
-    public boolean deleteUser(@RequestBody UserDto userDto){
-        return userService.deleteUser(userDto);
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody UserDto userDto) {
+        User createdUser = userService.createUser(userDto);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{uid}")
+    public ResponseEntity<User> updateUser(@PathVariable int uid, @RequestBody UserDto userDto) {
+        User updatedUser = userService.updateUser(uid, userDto);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @DeleteMapping("/{uid}")
+    public ResponseEntity<Void> deleteUser(@PathVariable int uid) {
+        userService.deleteUser(uid);
+        return ResponseEntity.noContent().build();
+    }
 }

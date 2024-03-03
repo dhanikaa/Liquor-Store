@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +19,4 @@ public class Cart {
     private int pid;
     private int quantity;
     private int price;
-
 }

@@ -11,10 +11,6 @@ public class LiquorStoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LiquorStoreApplication.class, args);
 	}
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
 
 	@Bean
 	public ModelMapper modelMapper(){
