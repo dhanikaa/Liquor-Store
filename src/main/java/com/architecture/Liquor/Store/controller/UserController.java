@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     private final UserService userService;
@@ -33,21 +34,22 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDto userDto) {
-        User createdUser = userService.createUser(userDto);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
-
     @PutMapping("/{uid}")
     public ResponseEntity<User> updateUser(@PathVariable int uid, @RequestBody UserDto userDto) {
         User updatedUser = userService.updateUser(uid, userDto);
         return ResponseEntity.ok(updatedUser);
     }
 
+    @PostMapping("/signup")
+    public ResponseEntity<User> signupUser(@RequestBody UserDto userDto) {
+        User createdUser = userService.createUser(userDto);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/{uid}")
     public ResponseEntity<Void> deleteUser(@PathVariable int uid) {
         userService.deleteUser(uid);
         return ResponseEntity.noContent().build();
+
     }
 }
