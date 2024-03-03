@@ -2,7 +2,8 @@ package com.architecture.Liquor.Store.repository;
 
 import com.architecture.Liquor.Store.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    // You can add custom query methods if needed
+    Optional<User> findByEmail(String email);
 }

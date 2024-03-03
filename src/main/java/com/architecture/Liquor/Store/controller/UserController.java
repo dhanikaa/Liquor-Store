@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3006")
 public class UserController {
 
     private final UserService userService;
@@ -22,34 +22,23 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{uid}")
-    public ResponseEntity<User> getUserById(@PathVariable int uid) {
-        User user = userService.getUserById(uid);
-        return ResponseEntity.ok(user);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
-    }
-
-    @PutMapping("/{uid}")
-    public ResponseEntity<User> updateUser(@PathVariable int uid, @RequestBody UserDto userDto) {
-        User updatedUser = userService.updateUser(uid, userDto);
-        return ResponseEntity.ok(updatedUser);
-    }
-
     @PostMapping("/signup")
     public ResponseEntity<User> signupUser(@RequestBody UserDto userDto) {
         User createdUser = userService.createUser(userDto);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{uid}")
-    public ResponseEntity<Void> deleteUser(@PathVariable int uid) {
-        userService.deleteUser(uid);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/login")
+    public ResponseEntity<User> loginUser(@RequestBody UserDto userDto) {
+        User existingUser = userService.getUserByEmail(userDto.getEmail());
+
+        if (existingUser != null && existingUser.getPassword().equals(userDto.getPassword())) {
+            // Successfully logged in
+            return ResponseEntity.ok(existingUser);
+        } else {
+            // Invalid login credentials
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
 
     }
 }
