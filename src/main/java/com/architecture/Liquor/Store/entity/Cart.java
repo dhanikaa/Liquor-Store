@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Cart {
+
     @Id
     @GeneratedValue
     private int cid;

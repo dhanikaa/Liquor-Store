@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartDto {
-    private int cid;
     private int pid;
     private int quantity;
     private int price;
